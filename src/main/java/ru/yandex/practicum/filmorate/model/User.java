@@ -29,11 +29,11 @@ public class User {
     private LocalDate birthday;
 
     @JsonCreator
-    public User ( @JsonProperty("id") Integer id,
+    public User (@JsonProperty("id") Integer id,
                  @JsonProperty("email") String email,
                  @JsonProperty("login") String login,
                  @JsonProperty("name") String name,
-                 @JsonProperty("birthday") LocalDate birthday ) {
+                 @JsonProperty("birthday") LocalDate birthday) {
         this.id = id;
         this.email = email;
         this.login = login;
