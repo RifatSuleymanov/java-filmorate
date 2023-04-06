@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.repository.UserRepository;
+import ru.yandex.practicum.filmorate.repository.UserRepositoryImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private static Integer idCounter = 0;
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository repository = new UserRepositoryImpl();
 
     @Override
     public List<User> getAllUsers() {
