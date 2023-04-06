@@ -12,6 +12,7 @@ public class FilmRepositoryImpl implements FilmRepository {
     public FilmRepositoryImpl() {
         films = new HashMap<>();
     }
+
     @Override
     public List<Film> getAllFilms() {
         return new ArrayList<>(films.values());
