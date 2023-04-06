@@ -9,7 +9,6 @@ import ru.yandex.practicum.filmorate.repository.FilmRepository;
 import ru.yandex.practicum.filmorate.repository.FilmRepositoryImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -35,7 +34,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Film update(Film film) {
         Film updatedFilm;
-        if(!repository.findById(film.getId()).isPresent()) {
+        if(!repository.findById(film.getId()).isPresent()){
             throw new FilmNotFoundException("Фильм с id " + film.getId() + " не найден.");
         }
         updatedFilm = repository.save(film);
