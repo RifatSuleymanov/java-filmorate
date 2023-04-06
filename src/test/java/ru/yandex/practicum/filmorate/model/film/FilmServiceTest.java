@@ -10,8 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,11 +59,11 @@ public class FilmServiceTest {
     @Test
     void shouldUpdateFilmAndReturnIt() {
         given(repository.save(film1)).willReturn(film1);
-        given(repository.findById(anyInt())).willReturn(Optional.of(film1));
+        given(repository.findById(anyLong())).willReturn(Optional.of(film1));
         given(repository.save(film2)).willReturn(film2);
 
         Film film = service.create(film1);
-        int id = film.getId();
+        long id = film.getId();
         film2.setId(id);
         Film updatedFilm = service.update(film2);
 

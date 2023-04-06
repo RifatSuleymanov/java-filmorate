@@ -76,7 +76,7 @@ public class FilmControllerTest {
 
     @Test
     void shouldUpdateFilmAndReturnIt() throws Exception {
-        film2.setId(1);
+        film2.setId(1L);
         when(service.update(any(Film.class))).thenReturn(film2);
 
         var mvcRequest = put("/films").contentType(MediaType.APPLICATION_JSON)
@@ -96,8 +96,8 @@ public class FilmControllerTest {
 
     @Test
     void shouldReturnAllFilms() throws Exception {
-        film1.setId(1);
-        film2.setId(2);
+        film1.setId(1L);
+        film2.setId(2L);
         when(service.getAllFilms()).thenReturn(List.of(film1, film2));
 
         var mvcRequest = get("/films").accept(MediaType.APPLICATION_JSON);
