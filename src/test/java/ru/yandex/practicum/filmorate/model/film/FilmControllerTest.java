@@ -30,15 +30,15 @@ import java.util.List;
 
 public class FilmControllerTest {
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @MockBean
-    FilmService service;
-    Film film1;
-    Film film2;
+    private FilmService service;
+    private Film film1;
+    private Film film2;
 
     @BeforeEach
     public void createFilms() {

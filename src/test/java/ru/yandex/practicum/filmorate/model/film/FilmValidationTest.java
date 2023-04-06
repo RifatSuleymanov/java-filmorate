@@ -16,8 +16,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class FilmValidationTest {
-    static Validator validator;
-    Film film;
+    private static Validator validator;
+    private Film film;
 
     @BeforeAll
     public static void getValidator() {

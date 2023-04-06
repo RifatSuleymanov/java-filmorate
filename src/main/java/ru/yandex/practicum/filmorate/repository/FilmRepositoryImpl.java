@@ -7,7 +7,7 @@ import java.util.*;
 
 @Repository
 public class FilmRepositoryImpl implements FilmRepository {
-    private final Map<Integer, Film> films;
+    private final Map<Long, Film> films;
 
     public FilmRepositoryImpl() {
         films = new HashMap<>();
@@ -18,8 +18,8 @@ public class FilmRepositoryImpl implements FilmRepository {
     }
 
     @Override
-    public Optional<Film> findById(Integer id) {
-        return Optional.ofNullable(films.get(id));
+    public Optional<Film> findById(Long id) {
+        return Optional.empty();
     }
 
     @Override

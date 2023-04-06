@@ -24,13 +24,13 @@ import static org.mockito.Mockito.when;
 
 public class UserControllerTest {
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
     @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
     @MockBean
-    UserService service;
-    User user1;
-    User user2;
+    private UserService service;
+    private User user1;
+    private User user2;
 
     @BeforeEach
     public void createUsers() {

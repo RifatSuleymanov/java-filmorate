@@ -15,8 +15,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class UserValidationTest {
-    static Validator validator;
-    User user;
+    private static Validator validator;
+    private User user;
 
     @BeforeAll
     public static void getValidator() {

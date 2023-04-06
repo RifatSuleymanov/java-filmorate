@@ -23,11 +23,11 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 public class FilmServiceTest {
     @Mock
-    FilmRepository repository;
+    private FilmRepository repository;
     @InjectMocks
-    FilmServiceImpl service;
-    Film film1;
-    Film film2;
+    private FilmServiceImpl service;
+    private Film film1;
+    private Film film2;
 
     @BeforeEach
     public void createFilms() {
