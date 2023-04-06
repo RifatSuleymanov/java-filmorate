@@ -10,6 +10,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.repository.UserRepository;

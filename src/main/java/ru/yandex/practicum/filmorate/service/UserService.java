@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface UserService {
     List<User> getAllUsers();
+
     User create(User user);
+
     User update(User user);
 }

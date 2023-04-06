@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface UserRepository {
     List<User> getAllUsers();
+
     Optional<User> findById(Integer id);
+
     User save(User user);
 }

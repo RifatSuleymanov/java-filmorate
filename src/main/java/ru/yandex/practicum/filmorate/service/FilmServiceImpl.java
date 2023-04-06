@@ -16,8 +16,10 @@ import java.util.Optional;
 public class FilmServiceImpl implements FilmService {
 
     private static Long idCounter = 0L;
+
     @Autowired
     private FilmRepository repository = new FilmRepositoryImpl();
+
     @Override
     public List<Film> getAllFilms() {
         return repository.getAllFilms();

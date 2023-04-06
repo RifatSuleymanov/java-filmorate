@@ -15,6 +15,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private static Integer idCounter = 0;
+
     @Autowired
     private UserRepository repository;
 
