@@ -37,14 +37,14 @@ public class UserControllerTest {
     @BeforeEach
     public void createUsers() {
         user1 = User.builder()
-                .id(0)
+                .id(0L)
                 .email("fc.chelsea11@yandex.ru")
                 .login("Chelsea11")
                 .name("Рифат")
                 .birthday(LocalDate.of(1994, 8, 29))
                 .build();
         user2 = User.builder()
-                .id(1)
+                .id(1L)
                 .email("aygul@yandex.ru")
                 .login("zvezda")
                 .name("Айгуль")
@@ -71,7 +71,7 @@ public class UserControllerTest {
 
     @Test
     void shouldUpdateUserAndReturnIt() throws Exception {
-        user2.setId(1);
+        user2.setId(1L);
         when(service.update(any(User.class))).thenReturn(user2);
 
         var mvcRequest = put("/users").contentType(MediaType.APPLICATION_JSON)
@@ -90,8 +90,8 @@ public class UserControllerTest {
 
     @Test
     void shouldReturnAllUsers() throws Exception {
-        user1.setId(1);
-        user2.setId(2);
+        user1.setId(1L);
+        user2.setId(2L);
         when(service.getAllUsers()).thenReturn(List.of(user1, user2));
 
         var mvcRequest = get("/users").contentType(MediaType.APPLICATION_JSON)
