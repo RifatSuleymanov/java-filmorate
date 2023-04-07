@@ -17,7 +17,7 @@ public class FilmServiceImpl implements FilmService {
     private static Long idCounter = 0L;
 
     @Autowired
-    private FilmRepository repository;
+    private FilmRepository repository = new FilmRepositoryImpl();
 
     @Override
     public List<Film> getAllFilms() {
