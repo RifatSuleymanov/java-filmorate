@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private static Integer idCounter = 0;
+    private static Long idCounter = 0L;
 
     @Autowired
     private UserRepository repository = new UserRepositoryImpl();

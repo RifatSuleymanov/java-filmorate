@@ -17,7 +17,7 @@ public class FilmServiceImpl implements FilmService {
     private static Long idCounter = 0L;
 
     @Autowired
-    private FilmRepository repository = new FilmRepositoryImpl();
+    private final FilmRepository repository = new FilmRepositoryImpl();
 
     @Override
     public List<Film> getAllFilms() {
@@ -34,11 +34,12 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Film update(Film film) {
         Film updatedFilm;
-        if (!repository.findById(film.getId()).isPresent()) {
+        if (repository.findById(film.getId()).isPresent()) {
+            updatedFilm = repository.save(film);
+            log.info("Данные фильма изменены: {}", updatedFilm);
+        } else {
             throw new FilmNotFoundException("Фильм с id " + film.getId() + " не найден.");
         }
-        updatedFilm = repository.save(film);
-            log.info("Данные фильма изменены: {}", updatedFilm);
         return updatedFilm;
     }
 }

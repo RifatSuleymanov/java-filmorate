@@ -62,11 +62,11 @@ public class UserServiceTest {
     @Test
     void shouldUpdateUserAndReturnIt() {
         given(repository.save(user1)).willReturn(user1);
-        given(repository.findById(anyInt())).willReturn(Optional.of(user1));
+        given(repository.findById(anyLong())).willReturn(Optional.of(user1));
         given(repository.save(user2)).willReturn(user2);
 
         User savedUser = service.create(user1);
-        int id = savedUser.getId();
+        long id = savedUser.getId();
         user2.setId(id);
         User updatedUser = service.update(user2);
 

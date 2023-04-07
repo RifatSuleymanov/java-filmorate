@@ -20,7 +20,7 @@ public class FilmRepositoryImpl implements FilmRepository {
 
     @Override
     public Optional<Film> findById(Long id) {
-        return Optional.empty();
+        return Optional.ofNullable(films.get(id));
     }
 
     @Override

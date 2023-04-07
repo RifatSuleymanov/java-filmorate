@@ -8,7 +8,7 @@ import java.util.*;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private final Map<Integer, User> users;
+    private final Map<Long, User> users;
 
     public UserRepositoryImpl() {
         users = new HashMap<>();
@@ -20,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Integer id) {
+    public Optional<User> findById(Long id) {
         return Optional.ofNullable(users.get(id));
     }
 
