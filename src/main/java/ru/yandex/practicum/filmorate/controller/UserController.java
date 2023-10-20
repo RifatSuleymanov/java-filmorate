@@ -9,26 +9,25 @@ import ru.yandex.practicum.filmorate.service.UserService;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
 @Slf4j
+@RestController
 @RequestMapping("/users")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public List<User> findAll() {
-        return userService.getAllUsers();
+    public List<User> returnAllUsers() {
+        return userService.getAll();
     }
 
     @PostMapping
-    public User addNew(@RequestBody @Valid User user) {
+    public User addNewUser(@RequestBody @Valid User user) {
         return userService.create(user);
     }
 
-    @PutMapping
-    public User updateExisting(@RequestBody @Valid User user) {
+    @PutMapping()
+    public User updateUser(@RequestBody @Valid User user) {
         return userService.update(user);
     }
 }
