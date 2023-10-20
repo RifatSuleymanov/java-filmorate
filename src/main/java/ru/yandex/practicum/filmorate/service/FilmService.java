@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class FilmService implements ImplService<Film> {
 
-    private final LocalDate START_RELEASE_DATE = LocalDate.of(1895, 12, 28);
+    private static final LocalDate START_RELEASE_DATE = LocalDate.of(1895, 12, 28);
 
     private Long idCounter = 0L;
 
