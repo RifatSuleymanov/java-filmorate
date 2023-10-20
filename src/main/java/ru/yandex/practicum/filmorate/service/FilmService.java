@@ -18,7 +18,7 @@ public class FilmService implements ImplService<Film> {
 
     private final static LocalDate START_RELEASE_DATE = LocalDate.of(1895, 12, 28);
 
-    private static Long idCounter = 0L;
+    private Long idCounter = 0L;
 
     private final HashMap<Long, Film> films;
 
