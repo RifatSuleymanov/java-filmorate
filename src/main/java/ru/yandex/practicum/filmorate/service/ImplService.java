@@ -3,7 +3,7 @@ package ru.yandex.practicum.filmorate.service;
 import java.util.List;
 import java.util.Optional;
 
-public interface ImplService<T>{
+public interface ImplService<T> {
 
     T create(T t);
 

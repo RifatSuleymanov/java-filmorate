@@ -17,17 +17,17 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> returnAllUsers(){
+    public List<User> returnAllUsers() {
         return userService.getAll();
     }
 
     @PostMapping
-    public User addNewUser(@RequestBody @Valid User user){
+    public User addNewUser(@RequestBody @Valid User user) {
         return userService.create(user);
     }
 
     @PutMapping()
-    public User updateUser(@RequestBody @Valid User user){
+    public User updateUser(@RequestBody @Valid User user) {
         return userService.update(user);
     }
 }

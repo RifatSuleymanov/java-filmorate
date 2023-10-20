@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class FilmService implements ImplService<Film> {
 
-    private final static LocalDate START_RELEASE_DATE = LocalDate.of(1895,12,28);
+    private final static LocalDate START_RELEASE_DATE = LocalDate.of(1895, 12, 28);
 
     private static Long idCounter = 0L;
 
@@ -31,8 +31,9 @@ public class FilmService implements ImplService<Film> {
         films.put(film.getId(), film);
         return film;
     }
-    public void validate(Film data){
-        if(data.getReleaseDate().isBefore(START_RELEASE_DATE)){
+
+    public void validate(Film data) {
+        if (data.getReleaseDate().isBefore(START_RELEASE_DATE)) {
             throw new ValidationException("Дата релиза некоректно");
         }
     }

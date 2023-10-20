@@ -21,9 +21,10 @@ public class UserService implements ImplService<User> {
     public UserService() {
         users = new HashMap<>();
     }
+
     @Override
     public User save(User user) {
-        if(user.getName() == null) {
+        if (user.getName() == null) {
             user.setName(user.getLogin());
         }
         users.put(user.getId(), user);
