@@ -1,71 +1,71 @@
 package ru.yandex.practicum.filmorate.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class FilmService implements ImplService<Film> {
+public class FilmService {
 
-    private static final LocalDate START_RELEASE_DATE = LocalDate.of(1895, 12, 28);
+    @Autowired
+    InMemoryFilmStorage inMemoryFilmStorage;
+    @Autowired
+    InMemoryUserStorage inMemoryUserStorage;
 
-    private Long idCounter = 0L;
+    @Autowired
+    FilmStorage filmStorage;
 
-    private final HashMap<Long, Film> films;
+    User user;
+    Film film;
 
-    public FilmService() {
-        films = new HashMap<>();
-    }
-
-    @Override
-    public Film save(Film film) {
-        films.put(film.getId(), film);
+    public Film addLike(Long userId, Long filmId) {
+        if (inMemoryUserStorage.findById(userId).isPresent()) {
+            user = inMemoryUserStorage.findById(userId).get();
+        }else {
+            throw new FilmNotFoundException("Фильм с такой id не существует");
+        }
+        if (inMemoryFilmStorage.findById(filmId).isPresent()) {
+            film = inMemoryFilmStorage.findById(filmId).get();
+        }else {
+            throw new FilmNotFoundException("Фильм с такой id не существует");
+        }
+        film.getLikes().add(userId);
         return film;
     }
 
-    public void validate(Film data) {
-        if (data.getReleaseDate().isBefore(START_RELEASE_DATE)) {
-            throw new ValidationException("Дата релиза некоректно");
+    public Film deleteLike(Long userId, Long filmId) {
+        if (inMemoryUserStorage.findById(userId).isPresent()) {
+            user = inMemoryUserStorage.findById(userId).get();
+        }else {
+            throw new FilmNotFoundException("Фильм с такой id не существует");
         }
-    }
-
-    @Override
-    public Film create(Film film) {
-        validate(film);
-        film.setId(++idCounter);
-        log.info("Добавлен новый фильм: {}", film);
-        return save(film);
-    }
-
-    @Override
-    public Optional<Film> findById(Long id) {
-        return Optional.ofNullable(films.get(id));
-    }
-
-    @Override
-    public Film update(Film film) {
-        Film updateFilm;
-        if (findById(film.getId()).isPresent()) {
-            updateFilm = save(film);
-            log.info("Данные фильма изменены: {}", updateFilm);
-        } else {
-            throw new FilmNotFoundException("Фильм с id " + film.getId() + " не найден.");
+        if (inMemoryFilmStorage.findById(filmId).isPresent()) {
+            film = inMemoryFilmStorage.findById(filmId).get();
+        }else {
+            throw new FilmNotFoundException("Фильм с такой id не существует");
         }
-        validate(film);
-        return updateFilm;
+        film.getLikes().remove(userId);
+        return film;
     }
 
-    @Override
-    public List<Film> getAll() {
-        return new ArrayList<>(films.values());
+    public List<Film> tenPopularFilmByLike(Integer count) {
+        log.info("Сортируем по количеству лайков");
+        return filmStorage
+                .getAll()
+                .stream()
+                .sorted((f0, f1) -> ((f1.getLikes().size()) - (f0.getLikes().size())))
+                .limit(count)
+                .collect(Collectors.toList());
+
     }
 }
