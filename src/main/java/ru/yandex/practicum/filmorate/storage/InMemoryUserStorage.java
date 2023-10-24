@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
-public class InMemoryUserStorage implements UserStorage{
+public class InMemoryUserStorage implements UserStorage {
 
     private static Long idCounter = 0L;
 
@@ -53,10 +53,10 @@ public class InMemoryUserStorage implements UserStorage{
 
     @Override
     public Optional<User> findById(Long id) {
-        if(users.containsKey(id)){
+        if (users.containsKey(id)) {
             log.info("Находим пользователя {} под id ", id);
             return Optional.ofNullable(users.get(id));
-        }else {
+        } else {
             throw new UserNotFoundException("Пользователя по id не существует");
         }
     }
