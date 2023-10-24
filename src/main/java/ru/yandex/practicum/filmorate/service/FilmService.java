@@ -31,12 +31,12 @@ public class FilmService {
     public Film addLike(Long userId, Long filmId) {
         if (inMemoryUserStorage.findById(userId).isPresent()) {
             user = inMemoryUserStorage.findById(userId).get();
-        }else {
+        } else {
             throw new FilmNotFoundException("Фильм с такой id не существует");
         }
         if (inMemoryFilmStorage.findById(filmId).isPresent()) {
             film = inMemoryFilmStorage.findById(filmId).get();
-        }else {
+        } else {
             throw new FilmNotFoundException("Фильм с такой id не существует");
         }
         film.getLikes().add(userId);
@@ -46,12 +46,12 @@ public class FilmService {
     public Film deleteLike(Long userId, Long filmId) {
         if (inMemoryUserStorage.findById(userId).isPresent()) {
             user = inMemoryUserStorage.findById(userId).get();
-        }else {
+        } else {
             throw new FilmNotFoundException("Фильм с такой id не существует");
         }
         if (inMemoryFilmStorage.findById(filmId).isPresent()) {
             film = inMemoryFilmStorage.findById(filmId).get();
-        }else {
+        } else {
             throw new FilmNotFoundException("Фильм с такой id не существует");
         }
         film.getLikes().remove(userId);
