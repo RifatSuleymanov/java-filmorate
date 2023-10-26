@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class Film {
@@ -19,4 +21,5 @@ public class Film {
     @Min(value = 1, message = "Продолжительность фильма указана не верно.")
     @Positive
     private long duration;
+    private Set<Long> likes = new HashSet<>();
 }
