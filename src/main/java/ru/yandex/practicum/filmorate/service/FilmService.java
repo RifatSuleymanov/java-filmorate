@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 public class FilmService {
 
     @Autowired
-    InMemoryFilmStorage inMemoryFilmStorage;
+    private InMemoryFilmStorage inMemoryFilmStorage;
     @Autowired
-    InMemoryUserStorage inMemoryUserStorage;
+    private InMemoryUserStorage inMemoryUserStorage;
 
     @Autowired
-    FilmStorage filmStorage;
+    private FilmStorage filmStorage;
 
     User user;
     Film film;
 
-    public Film addLike(Long userId, Long filmId) {
+    private void validate(Long userId, Long filmId) {
         if (inMemoryUserStorage.findById(userId).isPresent()) {
             user = inMemoryUserStorage.findById(userId).get();
         } else {
@@ -39,21 +39,16 @@ public class FilmService {
         } else {
             throw new FilmNotFoundException("Фильм с такой id не существует");
         }
+    }
+
+    public Film addLike(Long userId, Long filmId) {
+        validate(userId, filmId);
         film.getLikes().add(userId);
         return film;
     }
 
     public Film deleteLike(Long userId, Long filmId) {
-        if (inMemoryUserStorage.findById(userId).isPresent()) {
-            user = inMemoryUserStorage.findById(userId).get();
-        } else {
-            throw new FilmNotFoundException("Фильм с такой id не существует");
-        }
-        if (inMemoryFilmStorage.findById(filmId).isPresent()) {
-            film = inMemoryFilmStorage.findById(filmId).get();
-        } else {
-            throw new FilmNotFoundException("Фильм с такой id не существует");
-        }
+        validate(userId, filmId);
         film.getLikes().remove(userId);
         return film;
     }

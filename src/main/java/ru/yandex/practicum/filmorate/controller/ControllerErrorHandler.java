@@ -22,29 +22,28 @@ public class ControllerErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidationException(final ValidationException e) {
         log.warn("400 {}", e.getMessage());
-        return new ErrorResponse(400, e.getMessage());
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ExceptionHandler({FilmNotFoundException.class, UserNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final RuntimeException e) {
         log.warn("404 {}", e.getMessage());
-        return new ErrorResponse(404, e.getMessage());
+        return new ErrorResponse(HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleInternalException(final RuntimeException e) {
         log.warn("500 {}", e.getMessage());
-        return new ErrorResponse(500, e.getMessage());
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    protected ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.warn("400 {}", e.getMessage());
-        return new ErrorResponse(400, e.getMessage());
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ExceptionHandler
@@ -53,13 +52,13 @@ public class ControllerErrorHandler {
         String message = String.format("Параметр '%s' со значением '%s' не может быть приведен к типу '%s'",
                 e.getName(), e.getValue(), e.getRequiredType());
         log.warn("400 {}", e.getMessage());
-        return new ErrorResponse(400, message + ": " + e.getMessage());
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message + ": " + e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ErrorResponse handleIncorrectRequestException(IncorrectCountException e) {
         log.warn("406 {}", e.getMessage());
-        return new ErrorResponse(406, e.getMessage());
+        return new ErrorResponse(HttpStatus.NOT_ACCEPTABLE.value(), e.getMessage());
     }
 }
