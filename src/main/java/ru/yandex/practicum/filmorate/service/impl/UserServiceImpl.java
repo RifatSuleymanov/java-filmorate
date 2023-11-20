@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     @Qualifier("userDbStorage")
     private final UserStorage userStorage;
     private final FriendshipStorage friendshipStorage;
+
     public UserServiceImpl(@Qualifier("userDbStorage") UserStorage userStorage, FriendshipStorage friendshipStorage) {
         this.userStorage = userStorage;
         this.friendshipStorage = friendshipStorage;
