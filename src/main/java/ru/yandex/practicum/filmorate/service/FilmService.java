@@ -1,66 +1,21 @@
 package ru.yandex.practicum.filmorate.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.FilmStorage;
-import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
-import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Slf4j
-@Service
-public class FilmService {
+public interface FilmService {
+    List<Film> getAllFilms();
 
-    @Autowired
-    private InMemoryFilmStorage inMemoryFilmStorage;
-    @Autowired
-    private InMemoryUserStorage inMemoryUserStorage;
+    Film create(Film film);
 
-    @Autowired
-    private FilmStorage filmStorage;
+    Film update(Film film);
 
-    User user;
-    Film film;
+    Film getFilmById(Long filmId);
 
-    private void validate(Long userId, Long filmId) {
-        if (inMemoryUserStorage.findById(userId).isPresent()) {
-            user = inMemoryUserStorage.findById(userId).get();
-        } else {
-            throw new FilmNotFoundException("Фильм с такой id не существует");
-        }
-        if (inMemoryFilmStorage.findById(filmId).isPresent()) {
-            film = inMemoryFilmStorage.findById(filmId).get();
-        } else {
-            throw new FilmNotFoundException("Фильм с такой id не существует");
-        }
-    }
+    Film addLike(Long filmId, Long userId);
 
-    public Film addLike(Long userId, Long filmId) {
-        validate(userId, filmId);
-        film.getLikes().add(userId);
-        return film;
-    }
+    Film removeLike(Long filmId, Long userId);
 
-    public Film deleteLike(Long userId, Long filmId) {
-        validate(userId, filmId);
-        film.getLikes().remove(userId);
-        return film;
-    }
-
-    public List<Film> tenPopularFilmByLike(Integer count) {
-        log.info("Сортируем по количеству лайков");
-        return filmStorage
-                .getAll()
-                .stream()
-                .sorted((f0, f1) -> ((f1.getLikes().size()) - (f0.getLikes().size())))
-                .limit(count)
-                .collect(Collectors.toList());
-
-    }
+    List<Film> getTopLikedFilms(Integer count);
 }

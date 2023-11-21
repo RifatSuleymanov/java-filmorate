@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface FilmStorage {
     Film create(Film film);
 
-    Film update(Film film);
+    Film save(Film film);
+
+    List<Film> getAllFilms();
 
     Optional<Film> findById(Long id);
 
-    List<Film> getAll();
-
-    Film save(Film film);
+    boolean existsById(long id);
 }
