@@ -33,24 +33,6 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void deleteById(long id) {
-        User user = users.remove(id);
-        if (user == null) {
-            throw new UserNotFoundException(String.format("User not found: id = %d", id));
-        }
-    }
-
-    @Override
-    public void deleteAllById(Collection<Long> ids) {
-        ids.forEach(users::remove);
-    }
-
-    @Override
-    public void deleteAll() {
-        users.clear();
-    }
-
-    @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }

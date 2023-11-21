@@ -59,7 +59,7 @@ public class FriendshipDbStorage implements FriendshipStorage {
     }
 
     @Override
-    public boolean confirmFriendship(Friendship friendship) {
+    public boolean isConfirmFriendship(Friendship friendship) {
         var sqlQuery = "UPDATE friendship SET confirmed = true WHERE (user_id = :userId AND friend_id = :friendId) " +
                 "OR (user_id = :friendId AND friend_id = :userId)";
         var friendParams = new BeanPropertySqlParameterSource(friendship);

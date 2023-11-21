@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
                 log.info("Пользователь с id = {} отправил запрос на дружбу пользователю с id = {}.",
                         basicUserId, addingUserId);
             } else if (!friendshipStorage.isConfirmed(friendship)) {
-                friendshipStorage.confirmFriendship(friendship);
+                friendshipStorage.isConfirmFriendship(friendship);
                 log.info("Подтверждена дружба между пользователями id = {} и  id = {}.", basicUserId, addingUserId);
             } else {
                 throw new IncorrectRequestException(String

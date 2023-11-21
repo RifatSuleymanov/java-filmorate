@@ -15,11 +15,5 @@ public interface FilmStorage {
 
     Optional<Film> findById(Long id);
 
-    List<Film> findAllById(Collection<Long> ids);
-
-    boolean deleteFilmById(Long id);
-
     boolean existsById(long id);
-
-    void clear();
 }

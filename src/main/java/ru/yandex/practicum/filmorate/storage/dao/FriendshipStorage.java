@@ -12,7 +12,7 @@ public interface FriendshipStorage {
 
     List<Long> findFriendsIdByUserId(long id);
 
-    boolean confirmFriendship(Friendship friendship);
+    boolean isConfirmFriendship(Friendship friendship);
 
     void cancelFriendship(Friendship friendship);
 

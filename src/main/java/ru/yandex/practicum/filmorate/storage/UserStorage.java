@@ -16,11 +16,5 @@ public interface UserStorage {
 
     List<User> getAllById(Collection<Long> ids);
 
-    void deleteById(long id);
-
-    void deleteAllById(Collection<Long> ids);
-
-    void deleteAll();
-
     boolean existsById(long id);
 }

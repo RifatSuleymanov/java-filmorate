@@ -69,25 +69,6 @@ public class UserDbStorage implements UserStorage {
     }
 
     @Override
-    public void deleteById(long id) {
-        var sqlQuery = "DELETE FROM users WHERE user_id = ?";
-        jdbcTemplate.update(sqlQuery, id);
-    }
-
-    @Override
-    public void deleteAllById(Collection<Long> ids) {
-        var sqlQuery = "DELETE FROM users WHERE user_id IN (:ids)";
-        var idsParams = new MapSqlParameterSource("ids", ids);
-        namedParameterJdbcTemplate.update(sqlQuery, idsParams);
-    }
-
-    @Override
-    public void deleteAll() {
-        var sqlQuery = "DELETE FROM users";
-        jdbcTemplate.update(sqlQuery);
-    }
-
-    @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }

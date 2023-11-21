@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -9,17 +11,26 @@ import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static ru.yandex.practicum.filmorate.model.FilmorateRowMapper.FILM_ROW_MAPPER;
 
 @Repository("filmDbStorage")
 public class FilmDbStorage implements FilmStorage {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public FilmDbStorage(JdbcTemplate jdbcTemplate) {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public FilmDbStorage(@Qualifier("jdbcTemplate") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
     }
@@ -76,30 +87,7 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     @Override
-    public List<Film> findAllById(Collection<Long> ids) {
-        List<Film> result = new ArrayList<>();
-        String sqlQuery = "SELECT * FROM films JOIN mpa ON films.mpa_id = mpa.mpa_id WHERE films.film_id = ?";
-        for (Long id : ids) {
-            result.add(jdbcTemplate.queryForObject(sqlQuery, FILM_ROW_MAPPER, id));
-        }
-        return result;
-    }
-
-    @Override
-    public boolean deleteFilmById(Long id) {
-        String sqlQuery = "DELETE FROM films WHERE film_id = ?";
-        int rows = jdbcTemplate.update(sqlQuery);
-        return rows != 0;
-    }
-
-    @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
-    }
-
-    @Override
-    public void clear() {
-        var sqlQuery = "DELETE FROM films";
-        jdbcTemplate.update(sqlQuery);
     }
 }
